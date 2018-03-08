@@ -21,9 +21,7 @@ public class ActorsParser {
                     .map(line -> line.split(";"))
                     .filter(line -> line.length == 3)
                     .filter(line -> line != null)
-
                     .map(toActor())
-//
                     .collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
@@ -42,11 +40,15 @@ public class ActorsParser {
     }
 
     private List<String> torealGender(String column) {
-        String objects = column.replaceAll("\\[","").replaceAll("]","")
-                .replaceAll("\\{","").replaceAll("}","")
-                .replaceAll("'","");
+        String[] split = column
+                .replaceAll("\\[","")
+                .replaceAll("]","")
+                .replaceAll("\\{","")
+                .replaceAll("}","")
+                .replaceAll("'","")
+                .split(", ");
 
-        String[] split = objects.split(", ");
+
         return Stream.of(split)
                 .map(e -> e.split(": "))
                 .filter(e -> e.length == 2)
@@ -59,11 +61,13 @@ public class ActorsParser {
 
     private List<String> torealActor(String column) {
 
-       String objects = column.replaceAll("\\[","").replaceAll("]","")
-               .replaceAll("\\{","").replaceAll("}","")
-               .replaceAll("'","");
-
-       String[] split = objects.split(", ");
+        String[] split = column
+               .replaceAll("\\[","")
+               .replaceAll("]","")
+               .replaceAll("\\{","")
+               .replaceAll("}","")
+               .replaceAll("'","")
+               .split(", ");
 
        return Stream.of(split)
                .map(e -> e.split(": "))

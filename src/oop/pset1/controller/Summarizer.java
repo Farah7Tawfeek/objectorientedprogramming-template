@@ -14,8 +14,10 @@ public class Summarizer {
         // 5 most rated movies
         List<String> topRatedMovies = movies.stream()
                 .sorted((e1, e2) -> e2.getRating().compareTo(e1.getRating()))
+               // .peek(f-> System.out.println(f +" farah"))
                 .limit(5)
                 .map(e-> e.getMovieName() + " (" + e.getRating() + ")")
+                //.peek(f-> System.out.println(f +" farah"))
                 .collect(Collectors.toList());
 
         //2 most appearing movie genres
@@ -37,8 +39,7 @@ public class Summarizer {
         return summary ;
     }
 
-
-
+    //The most  5 appearing Actors and gender
     public Summary ActorSummarize(List<Actors> actors){
         Map<Object, Long> collect = actors.stream()
                 .map(e -> e.getActorsNames())
@@ -51,6 +52,12 @@ public class Summarizer {
                 .map(e -> e.getKey() + " (" + e.getValue() + ")")
                 .collect(Collectors.toList());
 
+        // How many actors are there
+        long numbersOfActors = actors.stream()
+                .map(e -> e.getActorsNames())
+                .flatMap(e -> e.stream())
+                .count();
+
 
         Map<String, Long> countingActorsGender= actors.stream()
                 .map(e -> e.getActorsGender())
@@ -59,7 +66,7 @@ public class Summarizer {
 
         List<String> sortedGender = countingActorsGender.entrySet().stream()
                 .sorted((e1, e2) -> e2.getValue().compareTo(e1.getValue()))
-                .map(e -> genderType(e.getKey()) + " == " + (Double.parseDouble(String.valueOf(e.getValue())) / 150105) * 100 + "%")
+                .map(e -> genderType(e.getKey()) + " == " + (Double.parseDouble(String.valueOf(e.getValue())) / numbersOfActors) * 100 + "%")
                 .collect(Collectors.toList());
 
         Summary actorsSummary = new Summary();

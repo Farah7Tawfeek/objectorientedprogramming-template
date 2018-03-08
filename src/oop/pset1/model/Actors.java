@@ -22,4 +22,5 @@ public class Actors {
     public void setActorsGender(List<String> actorsGender) {
         this.actorsGender = actorsGender;
     }
+
 }

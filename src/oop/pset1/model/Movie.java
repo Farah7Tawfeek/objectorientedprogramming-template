@@ -15,8 +15,6 @@ public class Movie {
         this.genres = genres;
     }
 
-
-
     public Double getRating() {
         return rating;
     }

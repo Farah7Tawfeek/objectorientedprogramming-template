@@ -22,6 +22,7 @@ public class MovieParser {
                     .filter(line -> line.length == 24)
                     .filter(line -> line != null)
                     .map(toMovie())
+                    //.peek(x -> System.out.println(x))
                     .collect(Collectors.toList());
         } catch (IOException e) {
             e.printStackTrace();
@@ -40,18 +41,27 @@ public class MovieParser {
 
         };
     }
-
+            //[{'id': 16, 'name': 'Animation'}, {'id': 35, 'name': 'Comedy'}, {'id': 10751, 'name': 'Family'}]
 
     private List<String> toGenres(String column) {
-        String objects = column.replaceAll("\\[","").replaceAll("]","");
-        objects = objects.replaceAll("\\{","").replaceAll("}","");
+        String objects = column
+                .replaceAll("\\[","")
+                .replaceAll("]","");
+        objects = objects.replaceAll("\\{","")
+                .replaceAll("}","");
 
-                objects = objects.replaceAll("'id': ","").replaceAll("[0-9]","");
+                objects = objects
+                        .replaceAll("'id': ","")
+                        .replaceAll("[0-9]","");
                 String[] genres = objects.split(",");
                 return Stream.of(genres)
+                //
                 .map(genre -> genre.split(":"))
+
+                // objects = objects.replaceAll("'","");
                 .filter(genre -> genre.length == 2)
                 .map(genre -> genre[1])
+                //.peek(genre -> System.out.println(genre))
                 .map(genre -> genre.replaceAll("'",""))
                 .collect(Collectors.toList());
                 }
