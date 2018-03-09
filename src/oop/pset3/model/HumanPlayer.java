@@ -10,7 +10,7 @@ public class HumanPlayer implements Players {
     public Movements getMovement()
     {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Choose yours  Rock or Paper or Scissros");
+        System.out.println("Choose Rock or Paper or Scissros or Lizard or Spock");
         String line = scanner.nextLine();
         MoveType moveType = new MoveType();
         List<Movements> movements = moveType.getMovements();

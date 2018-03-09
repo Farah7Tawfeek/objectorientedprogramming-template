@@ -10,6 +10,8 @@ public class MoveType {
         movements.add(new Rock());
         movements.add(new Paper());
         movements.add(new Scissros());
+        movements.add(new Lizard());
+        movements.add(new Spock());
         return movements;
     }
 }
